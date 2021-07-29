@@ -20,6 +20,13 @@ const Info = styled.div`
   width: 95%;
 `;
 
+const Hori = styled.div`
+  width: 87%;
+  height: 1px;
+  background-color: var(--light-text);
+  opacity: 0.5;
+`;
+
 const Row = styled.span`
   display: flex;
   gap: 10px;
@@ -51,7 +58,25 @@ const FeaturedPill = styled(NewPill)`
   background-color: var(--dark-text);
 `;
 
-const Position = styled.h1``;
+const Position = styled.h1`
+  color: var(--dark-text);
+  font-size: 16px;
+  margin: 2px 0px;
+`;
+
+const InfoUL = styled.ul`
+  color: var(--light-text);
+  display: flex;
+  font-size: 12px;
+  padding: 0;
+  gap: 18px;
+
+  > * {
+    &:first-child {
+      list-style: none;
+    }
+  }
+`;
 
 const JobItem = ({ data }) => {
   return (
@@ -62,7 +87,14 @@ const JobItem = ({ data }) => {
           {data.new && <NewPill>NEW!</NewPill>}
           {data.featured && <FeaturedPill>FEATURED</FeaturedPill>}
         </Row>
+        <Position>{data.position}</Position>
+        <InfoUL>
+          <li>{data.postedAt}</li>
+          <li>{data.contract}</li>
+          <li>{data.location}</li>
+        </InfoUL>
       </Info>
+      <Hori />
     </Item>
   );
 };
