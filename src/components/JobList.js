@@ -10,11 +10,9 @@ const ListContainer = styled.section`
 `;
 
 const JobList = ({ dataList }) => {
-  return (
-    <ListContainer>
-      <JobItem data={dataList[0]} />
-    </ListContainer>
-  );
+  const jobs = dataList.map(job => <JobItem key={job.id} data={job} />);
+
+  return <ListContainer>{jobs}</ListContainer>;
 };
 
 export default JobList;
