@@ -4,7 +4,7 @@ import bgMob from '../images/bg-header-mobile.svg';
 import bgDesk from '../images/bg-header-desktop.svg';
 
 const HeaderContainer = styled.header`
-  background-color: var(--primary-col);
+  background-color: var(--primary);
   width: 100%;
   height: 100%;
   background-image: url(${props => props.bg});
