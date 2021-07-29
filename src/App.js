@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+import Header from './components/Header';
+import Main from './components/Main';
+
+const Container = styled.div`
+  display: grid;
+  grid-template-rows: 156px calc(100vh - 156px);
+  justify-items: center;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Header />
+      <Main />
+    </Container>
   );
 }
 
