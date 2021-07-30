@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import useWindowSize from '../hooks/useWindowSize';
+import InfoMain from './InfoMain';
 
 const Item = styled.div`
   display: flex;
@@ -8,16 +10,13 @@ const Item = styled.div`
   border-radius: 5px;
   border-left: 5px solid
     ${({ featured }) => (featured ? 'var(--primary)' : 'white')};
-  width: 327px;
-  height: 258px;
-`;
+  width: 100%;
 
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* justify-content: flex-start; */
-  padding: 10px;
-  width: 95%;
+  @media (min-width: 800px) {
+    flex-direction: row;
+    height: 150px;
+    width: 95%;
+  }
 `;
 
 const Hori = styled.div`
@@ -27,74 +26,72 @@ const Hori = styled.div`
   opacity: 0.5;
 `;
 
-const Row = styled.span`
+const TagContainer = styled.div`
   display: flex;
-  gap: 10px;
-  align-items: center;
-  min-width: 100%;
-`;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 20px;
+  width: 90%;
+  align-self: flex-start;
 
-const Company = styled.h3`
-  color: var(--primary);
-  font-size: 14px;
-  margin-right: 10px;
-`;
-
-const NewPill = styled.div`
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  padding: 7px 8px 4px 8px;
-  text-transform: uppercase;
-  background-color: var(--primary);
-  color: white;
-  border-radius: 20px;
-  font-weight: 700;
-  font-size: 11px;
-  text-align: center;
-`;
-
-const FeaturedPill = styled(NewPill)`
-  background-color: var(--dark-text);
-`;
-
-const Position = styled.h1`
-  color: var(--dark-text);
-  font-size: 16px;
-  margin: 2px 0px;
-`;
-
-const InfoUL = styled.ul`
-  color: var(--light-text);
-  display: flex;
-  font-size: 12px;
-  padding: 0;
-  gap: 18px;
-
-  > * {
-    &:first-child {
-      list-style: none;
-    }
+  @media (min-width: 800px) {
+    align-self: center;
+    justify-content: flex-end;
+    margin-right: 10px;
   }
 `;
 
-const JobItem = ({ data }) => {
+const Tag = styled.div`
+  background-color: var(--filter-tags);
+  color: var(--primary);
+  padding: 8px 10px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  max-width: max-content;
+
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background-color: var(--primary);
+  }
+`;
+
+const Logo = styled.img`
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  align-self: flex-start;
+  margin-left: 20px;
+  margin-top: -20px;
+
+  @media (min-width: 800px) {
+    margin: 20px 18px 20px 26px;
+    align-self: center;
+    width: 88px;
+    height: 88px;
+  }
+`;
+
+const JobItem = ({ data, onAddFilter }) => {
+  const tags = [data.role, data.level, ...data.languages, ...data.tools];
+  const logoImg = process.env.PUBLIC_URL + data.logo;
+
+  const windowWidth = useWindowSize().width;
+
   return (
     <Item featured={data.featured}>
-      <Info>
-        <Row>
-          <Company>{data.company}</Company>
-          {data.new && <NewPill>NEW!</NewPill>}
-          {data.featured && <FeaturedPill>FEATURED</FeaturedPill>}
-        </Row>
-        <Position>{data.position}</Position>
-        <InfoUL>
-          <li>{data.postedAt}</li>
-          <li>{data.contract}</li>
-          <li>{data.location}</li>
-        </InfoUL>
-      </Info>
-      <Hori />
+      <Logo src={logoImg} />
+      <InfoMain data={data} />
+      {windowWidth < 800 && <Hori />}
+      <TagContainer>
+        {tags.map(tag => (
+          <Tag key={`${tag}_${Math.random()}`} onClick={onAddFilter}>
+            {tag}
+          </Tag>
+        ))}
+      </TagContainer>
     </Item>
   );
 };
