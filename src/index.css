@@ -11,6 +11,7 @@
   --bg-col: hsl(180, 52%, 96%);
   --dark-text: hsl(180, 14%, 20%);
   --light-text: hsl(180, 8%, 52%);
+  --filter-tags: hsl(180, 31%, 95%);
 }
 
 body {
