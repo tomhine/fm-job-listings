@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import JobList from './JobList';
 import dataList from '../data/data.json';
@@ -11,9 +12,26 @@ const MainContainer = styled.main`
 `;
 
 const Main = () => {
+  const [filters, setFilters] = useState([]);
+
+  const addFilterHandler = e => {
+    setFilters(cur => [...cur, e.target.innerText]);
+    console.log(filters);
+  };
+
+  const filteredData = dataList.filter(
+    data =>
+      filters.includes(data.role) ||
+      filters.includes(data.level) ||
+      filters.includes(...data.languages)
+  );
+
   return (
     <MainContainer>
-      <JobList dataList={dataList} />
+      <JobList
+        dataList={filters.length < 1 ? dataList : filteredData}
+        onAddFilter={addFilterHandler}
+      />
     </MainContainer>
   );
 };
