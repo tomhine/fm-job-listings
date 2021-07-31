@@ -24,7 +24,7 @@ const TagContainer = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
-  width: 100%;
+  width: 95%;
   gap: 12px 30px;
 `;
 
