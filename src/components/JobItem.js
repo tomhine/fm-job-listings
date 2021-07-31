@@ -1,22 +1,11 @@
 import styled from 'styled-components';
 import useWindowSize from '../hooks/useWindowSize';
 import InfoMain from './InfoMain';
+import { Card, Tag } from './UIElements';
 
-const Item = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  border-radius: 5px;
+const Item = styled(Card)`
   border-left: 5px solid
     ${({ featured }) => (featured ? 'var(--primary)' : 'white')};
-  width: 100%;
-
-  @media (min-width: 800px) {
-    flex-direction: row;
-    height: 150px;
-    width: 95%;
-  }
 `;
 
 const Hori = styled.div`
@@ -41,16 +30,7 @@ const TagContainer = styled.div`
   }
 `;
 
-const Tag = styled.div`
-  background-color: var(--filter-tags);
-  color: var(--primary);
-  padding: 8px 10px;
-  border-radius: 2px;
-  font-size: 12px;
-  font-weight: 700;
-  text-align: center;
-  max-width: max-content;
-
+const ItemTag = styled(Tag)`
   &:hover {
     cursor: pointer;
     color: white;
@@ -87,9 +67,9 @@ const JobItem = ({ data, onAddFilter }) => {
       {windowWidth < 800 && <Hori />}
       <TagContainer>
         {tags.map(tag => (
-          <Tag key={`${tag}_${Math.random()}`} onClick={onAddFilter}>
+          <ItemTag key={`${tag}_${Math.random()}`} onClick={onAddFilter}>
             {tag}
-          </Tag>
+          </ItemTag>
         ))}
       </TagContainer>
     </Item>
